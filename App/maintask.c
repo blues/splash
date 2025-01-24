@@ -22,6 +22,7 @@ uint8_t pdm_buffer[4096];
 #define PDM_BUFFER_SIZE (sizeof(pdm_buffer)/2)
 #define PCM_BUFFER_SIZE (PDM_BUFFER_SIZE * 8 / OVERSAMPLING_FACTOR)
 int16_t pcm_buffer[PCM_BUFFER_SIZE];
+float lastSpl = 0;
 
 // Main task
 void mainTask(void *params)
@@ -164,18 +165,21 @@ void processPDMData(uint8_t *pdm_data, uint32_t pdm_size)
     #define REFERENCE_RMS 1032.0f
 
     // Compute SPL
-    float SPL = 20.0f * log10f(rms / REFERENCE_RMS);
+    float SPL = 20.0f * log10f(rms / REFERENCE_RMS) + 26.0f;  // Adjust for -26 dBFS sensitivity
 
     // Remember it
-    static uint32_t loudCount = 0;
     static uint32_t sampleCount = 0;
     static float sampleSpl[100];
     sampleSpl[sampleCount % (sizeof(sampleSpl)/sizeof(sampleSpl[0]))] = SPL;
     sampleCount++;
-    if (SPL > -19) {
-        loudCount++;
-    }
+    lastSpl = SPL;
 
+}
+
+// Get the last spl
+float getLastSpl(void)
+{
+    return lastSpl;
 }
 
 // SAI data is half completed

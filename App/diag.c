@@ -5,7 +5,7 @@
 #include "app.h"
 #include "usart.h"
 #include "post.h"
-#include "sai.h" // OZZIE
+extern float getLastSpl(void); // OZZIE
 
 // Maximum command
 #define maxCMD 256
@@ -136,6 +136,10 @@ err_t diagProcess(char *diagCommand)
         debugf("RAM at startup: %lu\n", heapFreeAtStartup);
         debugf("RAM       free: %lu\n", xPortGetFreeHeapSize());
         taskStackStats();
+        for (int i=0; i<100000; i++) {
+            debugR("%d %f\n", i, getLastSpl());
+            timerMsSleep(200);
+        }
         break;
     }
 
