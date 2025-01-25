@@ -13,9 +13,11 @@
 #include <math.h>
 
 // For SAI
-#define PDM_CLOCK_FREQ 2064000  // 2.064 MHz
-#define PCM_SAMPLE_RATE 8000    // 8 kHz
-#define OVERSAMPLING_FACTOR (PDM_CLOCK_FREQ / PCM_SAMPLE_RATE)
+#define PDM_CLOCK_FREQ 3047619  // PLLSAI1P (Hz) from clock tree /4 x16 /21
+#define PCM_SAMPLE_RATE 48000   // Audio Frequency
+#define OVERSAMPLING_FACTOR 64  // Actually (PDM_CLOCK_FREQ / PCM_SAMPLE_RATE)
+                                // which is 63.492 or a sampling rate of 47.619
+                                // yielding an error of 0.79% which is negligible
 
 // Define buffer sizes for processing half a buffer
 uint8_t pdm_buffer[4096];
