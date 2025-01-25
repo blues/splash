@@ -1,18 +1,18 @@
 
-# Cygnet builds
-EWARM/cygnet.dep
-EWARM/cygnet/.ninja_deps
-EWARM/cygnet/.ninja_log
-EWARM/cygnet/Exe/
-EWARM/cygnet/List/
-EWARM/cygnet/Obj/
-EWARM/cygnet/Obj/Core/*
+# Splash builds
+EWARM/splash.dep
+EWARM/splash/.ninja_deps
+EWARM/splash/.ninja_log
+EWARM/splash/Exe/
+EWARM/splash/List/
+EWARM/splash/Obj/
+EWARM/splash/Obj/Core/*
 EWARM/settings/Project.wsdt
-EWARM/settings/cygnet.dnx
-EWARM/settings/cygnet.dbgdt
-EWARM/settings/cygnet.cygnet.cspy.bat
-EWARM/settings/cygnet.cygnet.cspy.ps1
-EWARM/settings/cygnet.cygnet.general.xcl
+EWARM/settings/splash.dnx
+EWARM/settings/splash.dbgdt
+EWARM/settings/splash.splash.cspy.bat
+EWARM/settings/splash.splash.cspy.ps1
+EWARM/settings/splash.splash.general.xcl
 EWARM/Backup*
 EWARM/cspy*
 
