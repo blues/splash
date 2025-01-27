@@ -10,7 +10,7 @@
 #if USE_SIMPLE_DECIMATION
 #define BLOCK_SIZE 2048
 #else
-#define BLOCK_SIZE 3120 // above AUDIO_IN_FREQ but an even factor of both DEC_CIC_FACTOR and DEC_OUT_FACTOR
+#define BLOCK_SIZE 9200   // a reasonable chunk that is a multiple of AUDIO_IN_FREQ and is an even factor of both DEC_CIC_FACTOR and DEC_OUT_FACTOR
 #endif
 
 #define DEC_CIC_FACTOR 8  // First filter Decimation factor

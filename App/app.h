@@ -60,7 +60,7 @@ void mainTask(void *params);
 
 // buffer.c
 #include "st/pdm2pcm.h"
-#define BUFFER_COUNT    4
+#define BUFFER_COUNT    3
 #define BUFFER_SIZE     BLOCK_SIZE
 void bufferInit(void);
 void bufferGetNextFree(uint8_t **buffer, uint32_t *buffer_length);
