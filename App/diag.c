@@ -14,6 +14,7 @@ extern float getLastSpl(void); // OZZIE
 typedef enum {
     CMD_RESTART,
     CMD_POWER,
+    CMD_SPL,
     CMD_MEM,
     CMD_BOOTLOADER_DIRECT,
     CMD_TRACE,
@@ -32,6 +33,7 @@ STATIC const cmd_def cmdText[] = {
     {"trace", CMD_TRACE},
     {"restart", CMD_RESTART},
     {"mem", CMD_MEM},
+    {"spl", CMD_SPL},
     {"power", CMD_POWER},
     {"bootloader", CMD_BOOTLOADER_DIRECT},
     {"post", CMD_POST},
@@ -131,15 +133,26 @@ err_t diagProcess(char *diagCommand)
         break;
     }
 
-    case CMD_MEM: {
-        debugf("RAM   physical: %lu\n", heapPhysical);
-        debugf("RAM at startup: %lu\n", heapFreeAtStartup);
-        debugf("RAM       free: %lu\n", xPortGetFreeHeapSize());
-        taskStackStats();
-        for (int i=0; i<100000; i++) {
-            debugR("%d %f\n", i, getLastSpl());
-            timerMsSleep(200);
+    case CMD_SPL: {
+        if (argvn[1] == 0) {
+            uint32_t gets, frees, overruns, hwm;
+            double avgGetMs, avgProcessMs;
+            bufferStats(&gets, &frees, &overruns, &hwm, &avgGetMs, &avgProcessMs);
+            debugR("spl:%0.2f gets:%ld frees:%ld overruns:%ld hwm:%ld/%ld getMs:%0.2f processMs:%0.2f\n", audioSpl(), gets, frees, overruns, hwm, BUFFER_COUNT, avgGetMs, avgProcessMs);
+        } else {
+            for (int i=0; i<argvn[1]; i++) {
+                debugR("%0.2f\n", audioSpl());
+                timerMsSleep(100);
+            }
         }
+        break;
+    }
+
+    case CMD_MEM: {
+        debugR("RAM   physical: %lu\n", heapPhysical);
+        debugR("RAM at startup: %lu\n", heapFreeAtStartup);
+        debugR("RAM       free: %lu\n", xPortGetFreeHeapSize());
+        taskStackStats();
         break;
     }
 
@@ -168,11 +181,11 @@ err_t diagProcess(char *diagCommand)
     case CMD_RESTART:
         MX_Restart();
         break;
-        
+
     case CMD_POST: {
         postSelfTest();
         break;
-    }        
+    }
 
 
     case CMD_UNRECOGNIZED: {

@@ -102,19 +102,21 @@ void SystemClock_Config(void)
     if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK) {
         Error_Handler();
     }
-
-    // There are two clock configurations here - one optimizing for low power (48Mhz) and one for high speed (80Mhz)
-#ifndef CLOCK_OPTIMIZE_FOR_HIGH_SPEED
-    // Low Power
+    // Begin oscillator type with the need LSE for RTC, and OR-in more clocks below
     RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSE;
     RCC_OscInitStruct.LSEState = RCC_LSE_ON;
-    RCC_OscInitStruct.OscillatorType |= RCC_OSCILLATORTYPE_MSI|RCC_OSCILLATORTYPE_HSI;
+    // We need MSI for USB
+    RCC_OscInitStruct.OscillatorType |= RCC_OSCILLATORTYPE_MSI;
     RCC_OscInitStruct.MSIState = RCC_MSI_ON;
     RCC_OscInitStruct.MSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
     RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_11;
-    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+    // There are two clock configurations here - one optimizing for low power (48Mhz) and one for high speed (80Mhz)
+#ifndef CLOCK_OPTIMIZE_FOR_HIGH_SPEED
+    // Low Power
+    RCC_OscInitStruct.OscillatorType |= RCC_OSCILLATORTYPE_HSI;
     RCC_OscInitStruct.HSIState = RCC_HSI_ON;
     RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
     if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
         Error_Handler();
     }
@@ -130,7 +132,7 @@ void SystemClock_Config(void)
     __HAL_RCC_WAKEUPSTOP_CLK_CONFIG(RCC_STOP_WAKEUPCLOCK_MSI);
 #else
     // High Speed
-    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.OscillatorType |= RCC_OSCILLATORTYPE_HSI;
     RCC_OscInitStruct.HSIState = RCC_HSI_ON;
     RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
     RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;

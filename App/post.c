@@ -15,29 +15,28 @@ typedef struct {
 } gpiodef;
 
 // Enumerated index for the GPIOs defined in the gpiodef table below.
-enum
-{
-  GPIO_USB_DETECT,
-  GPIO_A0,
-  GPIO_A1,
-  GPIO_A2,
-  GPIO_A3,
-  GPIO_A4,
-  GPIO_A5,
-  GPIO_D5,
-  GPIO_D6,
-  GPIO_D9,
-  GPIO_D10,
-  GPIO_D11,
-  GPIO_D12,
-  GPIO_D13,
-  GPIO_LAST,
+enum {
+    GPIO_USB_DETECT,
+    GPIO_A0,
+    GPIO_A1,
+    GPIO_A2,
+    GPIO_A3,
+    GPIO_A4,
+    GPIO_A5,
+    GPIO_D5,
+    GPIO_D6,
+    GPIO_D9,
+    GPIO_D10,
+    GPIO_D11,
+    GPIO_D12,
+    GPIO_D13,
+    GPIO_LAST,
 };
 
 // Port flags
 // GPIO table, which MUST be ordered exactly as defined in the above enum.
 STATIC gpiodef gpio[GPIO_LAST+1] = {
-    {"USB_DETECT", USB_DETECT_GPIO_Port, USB_DETECT_Pin, USB_DETECT_IRQn},  
+    {"USB_DETECT", USB_DETECT_GPIO_Port, USB_DETECT_Pin, USB_DETECT_IRQn},
     {"A0", A0_GPIO_Port, A0_Pin, A0_IRQn},
     {"A1", A1_GPIO_Port, A1_Pin, A1_IRQn},
     {"A2", A2_GPIO_Port, A2_Pin, A2_IRQn},
@@ -50,7 +49,7 @@ STATIC gpiodef gpio[GPIO_LAST+1] = {
     {"D10", D10_GPIO_Port, D10_Pin, D10_IRQn},
     {"D11", D11_GPIO_Port, D11_Pin, D11_IRQn},
     {"D12", D12_GPIO_Port, D12_Pin, D12_IRQn},
-    {"D13", D13_GPIO_Port, D13_Pin, D13_IRQn},      
+    {"D13", D13_GPIO_Port, D13_Pin, D13_IRQn},
     {"", 0, 0, NULL},
 };
 
@@ -96,10 +95,10 @@ STATIC pinPair notecard_pins[] = {
         .a={ .name="D5", .gpio=GPIO_D5 },
         .b={ .name="D6", .gpio=GPIO_D6}
     },
-/*    {
-        // Since we have an odd number of GPIO, this one gets skipped.
-        .b={ .name="D9", .gpio=8 }
-    },*/
+    /*    {
+            // Since we have an odd number of GPIO, this one gets skipped.
+            .b={ .name="D9", .gpio=8 }
+        },*/
     {
         .a={ .name="D10", .gpio=GPIO_D10 },
         .b={ .name="D11", .gpio=GPIO_D11 }

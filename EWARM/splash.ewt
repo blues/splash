@@ -1422,8 +1422,32 @@
     </configuration>
     <group>
         <name>App</name>
+        <group>
+            <name>ST</name>
+            <file>
+                <name>$PROJ_DIR$\..\App\st\arm_fir_decimate_init_q15.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\App\st\arm_fir_decimate_q15.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\App\st\iir_hp.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\App\st\lut_filter.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\App\st\pdm2pcm.c</name>
+            </file>
+        </group>
         <file>
             <name>$PROJ_DIR$\..\App\app.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\App\audio.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\App\buffer.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\App\button.c</name>
@@ -1451,6 +1475,9 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\App\serial.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\App\simple.c</name>
         </file>
     </group>
     <group>
